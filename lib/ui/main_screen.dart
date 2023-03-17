@@ -6,6 +6,7 @@ import '../bloc/bloc.dart';
 import '../bloc/events.dart';
 import '../bloc/states.dart';
 import '../model/indication.dart';
+import '../model/status.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -103,58 +104,7 @@ class _MainScreenState extends State<MainScreen> {
                             children: [
                               DateTimeStamp(dateTime: item.dateTime),
                               Text('${item.charge}%'),
-                              (() {
-                                if (item.isCharging) {
-                                  return const Icon(
-                                    Icons.battery_charging_full,
-                                    color: Colors.blue,
-                                  );
-                                } else {
-                                  return (() {
-                                    if (item.charge < 9) {
-                                      return const Icon(
-                                        Icons.battery_0_bar,
-                                        color: Colors.red,
-                                      );
-                                    } else if (item.charge < 24) {
-                                      return const Icon(
-                                        Icons.battery_1_bar,
-                                        color: Colors.deepOrange,
-                                      );
-                                    } else if (item.charge < 39) {
-                                      return const Icon(
-                                        Icons.battery_2_bar,
-                                        color: Colors.deepOrangeAccent,
-                                      );
-                                    } else if (item.charge < 54) {
-                                      return const Icon(
-                                        Icons.battery_3_bar,
-                                        color: Colors.orange,
-                                      );
-                                    } else if (item.charge < 69) {
-                                      return const Icon(
-                                        Icons.battery_4_bar,
-                                        color: Colors.orangeAccent,
-                                      );
-                                    } else if (item.charge < 84) {
-                                      return const Icon(
-                                        Icons.battery_5_bar,
-                                        color: Colors.green,
-                                      );
-                                    } else if (item.charge < 99) {
-                                      return const Icon(
-                                        Icons.battery_6_bar,
-                                        color: Colors.green,
-                                      );
-                                    } else {
-                                      return const Icon(
-                                        Icons.battery_full,
-                                        color: Colors.green,
-                                      );
-                                    }
-                                  }());
-                                }
-                              }()),
+                              Status.getIcon(item.isCharging, item.charge),
                               (item.haveWiFi)
                                   ? const Icon(
                                       Icons.wifi,
